@@ -1,0 +1,7 @@
+Strategy,Ann. Return (%),Ann. Volatility (%),Sharpe Ratio,Max Drawdown (%),Ann. Turnover (%)
+EqualWeight,18.9,22.4,0.665,-35.75,0.0
+ClassicalMVO,23.51,32.06,0.609,-56.85,56.3
+RiskParity,18.9,22.4,0.665,-35.75,0.0
+RF,13.32,27.45,0.34,-42.82,361.0
+XGBoost,4.82,27.87,0.03,-57.67,388.7
+LSTM,12.53,25.95,0.329,-39.66,678.4
