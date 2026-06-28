@@ -1,0 +1,16 @@
+Parameter,Sharpe Ratio
+Risk aversion (λ=0.5),-0.539
+Risk aversion (λ=1.0),-0.539
+Risk aversion (λ=2.0),-0.537
+Risk aversion (λ=5.0),-0.532
+Risk aversion (λ=10.0),-0.525
+Transaction cost (0 bps),-0.519
+Transaction cost (5 bps),-0.528
+Transaction cost (10 bps),-0.537
+Transaction cost (20 bps),-0.556
+Transaction cost (50 bps),-0.611
+Max weight (10%),-0.243
+Max weight (15%),-0.36
+Max weight (20%),-0.537
+Max weight (30%),-0.486
+Max weight (50%),-0.522

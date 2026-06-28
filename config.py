@@ -4,11 +4,53 @@
 
 # --- Asset universe ---
 # List of ticker symbols (Yahoo Finance format)
-TICKERS = [
+LARGE_CAP_TICKERS = [
     "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA",
     "META", "TSLA", "BRK-B", "JPM", "UNH",
     "V", "XOM", "JNJ", "PG", "HD"
 ]
+
+MIDCAP_TICKERS = [
+    "EMN",   # Eastman Chemical
+    "FSLR",  # First Solar
+    "RPM",
+    "ALGN",
+    "AOS",
+    "CMA",
+    "MAS",
+    "WTRG",
+    "BJ",
+    "DAR",
+    "LEA",
+    "NDSN",
+    "OGE",
+    "PFGC",
+    "RLI",
+    "SAIC",
+    "TAP",
+    "WHR",
+    "ZBRA",
+    "CHDN",
+    "DTM",
+    "GATX",
+    "HLI",
+    "ITT",
+    "JBL",
+    "LKQ",
+    "MAT",
+    "NOV",
+    "PNR",
+    "R",
+    "SITE",
+    "SWK",
+    "TFX",
+    "UHS",
+    "WCC"
+]
+
+ALL_TICKERS = LARGE_CAP_TICKERS + MIDCAP_TICKERS
+
+UNIVERSE = "mid"  # large | mid
 
 # --- Date range ---
 START_DATE = "2015-01-01"
@@ -29,4 +71,11 @@ MAX_WEIGHT          = 0.20   # maximum single-asset weight (20%)
 TRANSACTION_COST    = 0.001  # 10 bps per unit turnover
 
 # --- Output directory ---
-OUTPUT_DIR = "outputs"
+OUTPUT_DIR = "outputs_mid"
+
+if UNIVERSE == "large":
+    TICKERS = LARGE_CAP_TICKERS
+elif UNIVERSE == "mid":
+    TICKERS = MIDCAP_TICKERS
+else:
+    raise ValueError("UNIVERSE must be 'large' or 'mid'")

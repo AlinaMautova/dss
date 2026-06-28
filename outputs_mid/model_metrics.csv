@@ -1,0 +1,5 @@
+Model,MSE (×10⁻⁴),MAE (×10⁻²),Directional Accuracy (%)
+LinearRegression,145.416,8.762,50.7
+RandomForest,180.984,9.645,51.5
+XGBoost,174.798,9.572,51.6
+LSTM,253.108,11.857,49.8
