@@ -28,6 +28,20 @@ import matplotlib.patches as mpatches
 from scipy.optimize import minimize
 from sklearn.covariance import LedoitWolf
 
+# --- Larger fonts and higher export resolution for print readability ---
+# (addresses reviewer comment on small fonts in Figures 2-5)
+plt.rcParams.update({
+    "font.size":       13,
+    "axes.titlesize":  15,
+    "axes.labelsize":  14,
+    "xtick.labelsize": 12,
+    "ytick.labelsize": 12,
+    "legend.fontsize": 12,
+    "figure.dpi":      150,
+    "savefig.dpi":     300,
+})
+FIG_DPI = 300
+
 os.makedirs(f"{OUTPUT_DIR}/figures", exist_ok=True)
 
 returns  = pd.read_csv(f"{OUTPUT_DIR}/returns.csv",       index_col=0, parse_dates=True)
@@ -57,7 +71,7 @@ for ax in axes[N:]:
     ax.set_visible(False)
 plt.suptitle("Distribution of Daily Log Returns by Asset", fontsize=11)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/figures/fig01_return_distributions.png", dpi=150, bbox_inches="tight")
+plt.savefig(f"{OUTPUT_DIR}/figures/fig01_return_distributions.png", dpi=FIG_DPI, bbox_inches="tight")
 plt.close()
 print(f"  Saved: {OUTPUT_DIR}/figures/fig01_return_distributions.png")
 print("  *** INSERT AS FIGURE 1 in article ***")
@@ -83,9 +97,9 @@ patches = [mpatches.Patch(color=c, label=l)
 ax.legend(handles=patches, loc="lower right")
 ax.set_xlabel("Time (years)")
 ax.set_ylabel("Fold")
-ax.set_title("Walk-Forward Cross-Validation Scheme", fontsize=12)
+ax.set_title("Walk-Forward Cross-Validation Scheme", fontsize=15)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/figures/fig02_walkforward.png", dpi=150, bbox_inches="tight")
+plt.savefig(f"{OUTPUT_DIR}/figures/fig02_walkforward.png", dpi=FIG_DPI, bbox_inches="tight")
 plt.close()
 print(f"  Saved: {OUTPUT_DIR}/figures/fig02_walkforward.png")
 print("  *** INSERT AS FIGURE 2 in article ***")
@@ -116,7 +130,7 @@ for i in range(len(modules) - 1):
 
 ax.set_title("DSS System Architecture", fontsize=13, pad=10)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/figures/fig03_architecture.png", dpi=150, bbox_inches="tight")
+plt.savefig(f"{OUTPUT_DIR}/figures/fig03_architecture.png", dpi=FIG_DPI, bbox_inches="tight")
 plt.close()
 print(f"  Saved: {OUTPUT_DIR}/figures/fig03_architecture.png")
 print("  *** INSERT AS FIGURE 3 in article ***")
@@ -133,15 +147,15 @@ all_pred, all_actual = np.array(all_pred), np.array(all_actual)
 ax.scatter(all_actual, all_pred, alpha=0.15, s=5, color="#1976D2")
 lim = max(abs(all_actual).max(), abs(all_pred).max()) * 1.1
 ax.plot([-lim, lim], [-lim, lim], "r--", lw=1, label="Perfect forecast")
-ax.set_xlabel("Actual 1-month return", fontsize=11)
-ax.set_ylabel("Predicted 1-month return", fontsize=11)
-ax.set_title("XGBoost: Predicted vs Actual Returns (Out-of-Sample)", fontsize=11)
+ax.set_xlabel("Actual 1-month return", fontsize=14)
+ax.set_ylabel("Predicted 1-month return", fontsize=14)
+ax.set_title("XGBoost: Predicted vs Actual Returns (Out-of-Sample)", fontsize=14)
 ax.legend()
 r2 = np.corrcoef(all_actual, all_pred)[0,1]**2
 ax.text(0.05, 0.95, f"R² = {r2:.3f}", transform=ax.transAxes,
         fontsize=10, va="top", bbox=dict(boxstyle="round", facecolor="wheat", alpha=0.5))
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/figures/fig04_prediction_scatter.png", dpi=150, bbox_inches="tight")
+plt.savefig(f"{OUTPUT_DIR}/figures/fig04_prediction_scatter.png", dpi=FIG_DPI, bbox_inches="tight")
 plt.close()
 print(f"  Saved: {OUTPUT_DIR}/figures/fig04_prediction_scatter.png")
 print("  *** INSERT AS FIGURE 4 in article ***")
@@ -153,13 +167,13 @@ cum = (1 + port_df).cumprod()
 for i, col in enumerate(cum.columns):
     style = "-" if "DSS" in col or col in ["XGBoost", "RF", "LSTM"] else "--"
     ax.plot(cum.index, cum[col], label=col, lw=1.8, ls=style, color=COLORS[i % 10])
-ax.set_xlabel("Date", fontsize=11)
-ax.set_ylabel("Portfolio Value (normalised to 1.0)", fontsize=11)
-ax.set_title("Cumulative Portfolio Performance: All Strategies", fontsize=12)
-ax.legend(loc="upper left", fontsize=9)
+ax.set_xlabel("Date", fontsize=14)
+ax.set_ylabel("Portfolio Value (normalised to 1.0)", fontsize=14)
+ax.set_title("Cumulative Portfolio Performance: All Strategies", fontsize=15)
+ax.legend(loc="upper left", fontsize=11)
 ax.grid(alpha=0.3)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/figures/fig05_cumulative_returns.png", dpi=150, bbox_inches="tight")
+plt.savefig(f"{OUTPUT_DIR}/figures/fig05_cumulative_returns.png", dpi=FIG_DPI, bbox_inches="tight")
 plt.close()
 print(f"  Saved: {OUTPUT_DIR}/figures/fig05_cumulative_returns.png")
 print("  *** INSERT AS FIGURE 5 in article ***")
@@ -180,7 +194,7 @@ ax.set_title("Rolling Sharpe Ratio: ML-DSS vs Baselines", fontsize=12)
 ax.legend(fontsize=9)
 ax.grid(alpha=0.3)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/figures/fig06_rolling_sharpe.png", dpi=150, bbox_inches="tight")
+plt.savefig(f"{OUTPUT_DIR}/figures/fig06_rolling_sharpe.png", dpi=FIG_DPI, bbox_inches="tight")
 plt.close()
 print(f"  Saved: {OUTPUT_DIR}/figures/fig06_rolling_sharpe.png")
 print("  *** INSERT AS FIGURE 6 in article ***")
@@ -231,7 +245,7 @@ ax.set_ylabel("Annualised Expected Return", fontsize=11)
 ax.set_title("Efficient Frontier (Representative Rebalancing Date)", fontsize=11)
 ax.legend(fontsize=9)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/figures/fig07_efficient_frontier.png", dpi=150, bbox_inches="tight")
+plt.savefig(f"{OUTPUT_DIR}/figures/fig07_efficient_frontier.png", dpi=FIG_DPI, bbox_inches="tight")
 plt.close()
 print(f"  Saved: {OUTPUT_DIR}/figures/fig07_efficient_frontier.png")
 print("  *** INSERT AS FIGURE 7 in article ***")
@@ -252,7 +266,7 @@ if "XGBoost" in weight_history:
     ax.legend(loc="upper left", ncol=3, fontsize=7)
     ax.set_ylim(0, 1)
     plt.tight_layout()
-    plt.savefig(f"{OUTPUT_DIR}/figures/fig10_portfolio_weights.png", dpi=150, bbox_inches="tight")
+    plt.savefig(f"{OUTPUT_DIR}/figures/fig10_portfolio_weights.png", dpi=FIG_DPI, bbox_inches="tight")
     plt.close()
     print(f"  Saved: {OUTPUT_DIR}/figures/fig10_portfolio_weights.png")
     print("  *** INSERT AS FIGURE 10 in article ***")
